@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Chatbot from './Chatbot'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -68,7 +69,7 @@ function Layout({ children }: LayoutProps) {
         {/* Left Column - Fixed */}
         <aside className="fixed left-0 top-0 h-screen w-1/2 p-8 flex flex-col items-center justify-center z-20">
           <div className="w-full max-w-md text-left mb-12">
-            <h1 className="text-5xl font-bold text-white mb-2">Imran</h1>
+            <h1 className="text-5xl font-bold text-white mb-2">Imran Ali</h1>
             <p className="text-[#8892b0] text-lg mb-4">Front End Developer</p>
             <p className="text-[#8892b0] text-base">
               I build accessible, pixel-perfect digital experiences for the web.
@@ -177,6 +178,9 @@ function Layout({ children }: LayoutProps) {
           </div>
         </main>
       </div>
+
+      {/* Chatbot Component */}
+      <Chatbot />
     </div>
   )
 }
