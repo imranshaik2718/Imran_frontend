@@ -6,6 +6,7 @@ interface LayoutProps {
 
 function Layout({ children }: LayoutProps) {
   const [activeSection, setActiveSection] = useState('about')
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 })
 
   useEffect(() => {
     const mainElement = document.querySelector('main')
@@ -32,6 +33,17 @@ function Layout({ children }: LayoutProps) {
     return () => mainElement.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth) * 100
+      const y = (e.clientY / window.innerHeight) * 100
+      setMousePosition({ x, y })
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
   const scrollToSection = (sectionId: string) => {
     const mainElement = document.querySelector('main')
     const element = document.getElementById(sectionId)
@@ -46,13 +58,18 @@ function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a192f] text-[#ccd6f6]">
-      <div className="flex">
+    <div 
+      className="min-h-screen text-[#ccd6f6] relative overflow-hidden"
+      style={{
+        background: `radial-gradient(800px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(90, 205, 218, 0.1), transparent 40%), #0a192f`
+      }}
+    >
+      <div className="flex relative z-10">
         {/* Left Column - Fixed */}
-        <aside className="fixed left-0 top-0 h-screen w-1/2 bg-[#0a192f] p-8 flex flex-col items-center justify-center">
+        <aside className="fixed left-0 top-0 h-screen w-1/2 p-8 flex flex-col items-center justify-center z-20">
           <div className="w-full max-w-md text-left mb-12">
             <h1 className="text-5xl font-bold text-white mb-2">Imran</h1>
-            <p className="text-[#8892b0] text-lg mb-4">Front End Engineer</p>
+            <p className="text-[#8892b0] text-lg mb-4">Front End Developer</p>
             <p className="text-[#8892b0] text-base">
               I build accessible, pixel-perfect digital experiences for the web.
             </p>
@@ -154,7 +171,7 @@ function Layout({ children }: LayoutProps) {
         </aside>
 
         {/* Right Column - Scrollable */}
-        <main className="ml-[50%] w-1/2 overflow-y-auto h-screen">
+        <main className="ml-[50%] w-1/2 overflow-y-auto h-screen relative z-10">
           <div className="px-12 py-16">
             {children}
           </div>
