@@ -50,7 +50,7 @@ function Layout({ children }: LayoutProps) {
       <div className="flex">
         {/* Left Column - Fixed */}
         <aside className="fixed left-0 top-0 h-screen w-1/2 bg-[#0a192f] p-8 flex flex-col items-center justify-center">
-          <div className="mb-8 text-center">
+          <div className="w-full max-w-md text-left mb-12">
             <h1 className="text-5xl font-bold text-white mb-2">Imran</h1>
             <p className="text-[#8892b0] text-lg mb-4">Front End Engineer</p>
             <p className="text-[#8892b0] text-base">
@@ -58,40 +58,43 @@ function Layout({ children }: LayoutProps) {
             </p>
           </div>
           
-          <nav className="mb-auto space-y-2 text-center">
+          <nav className="w-full max-w-md space-y-2">
             <button
               onClick={() => scrollToSection('about')}
-              className={`block py-2 text-sm transition-colors uppercase tracking-wider ${
+              className={`flex items-center gap-3 py-2 text-sm transition-colors uppercase tracking-wider text-left w-full ${
                 activeSection === 'about'
                   ? 'text-[#64ffda]'
                   : 'text-[#8892b0] hover:text-[#64ffda]'
               }`}
             >
+              <span className={`h-px transition-all ${activeSection === 'about' ? 'w-12 bg-[#64ffda]' : 'w-8 bg-[#8892b0]'}`}></span>
               About
             </button>
             <button
               onClick={() => scrollToSection('experience')}
-              className={`block py-2 text-sm transition-colors uppercase tracking-wider ${
+              className={`flex items-center gap-3 py-2 text-sm transition-colors uppercase tracking-wider text-left w-full ${
                 activeSection === 'experience'
                   ? 'text-[#64ffda]'
                   : 'text-[#8892b0] hover:text-[#64ffda]'
               }`}
             >
+              <span className={`h-px transition-all ${activeSection === 'experience' ? 'w-12 bg-[#64ffda]' : 'w-8 bg-[#8892b0]'}`}></span>
               Experience
             </button>
             <button
               onClick={() => scrollToSection('projects')}
-              className={`block py-2 text-sm transition-colors uppercase tracking-wider ${
+              className={`flex items-center gap-3 py-2 text-sm transition-colors uppercase tracking-wider text-left w-full ${
                 activeSection === 'projects'
                   ? 'text-[#64ffda]'
                   : 'text-[#8892b0] hover:text-[#64ffda]'
               }`}
             >
+              <span className={`h-px transition-all ${activeSection === 'projects' ? 'w-12 bg-[#64ffda]' : 'w-8 bg-[#8892b0]'}`}></span>
               Projects
             </button>
           </nav>
 
-          <div className="pt-8 flex gap-4 justify-center">
+          <div className="w-full max-w-md mt-12 flex gap-4">
             <a
               href="https://github.com"
               target="_blank"
