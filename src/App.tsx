@@ -2,7 +2,7 @@ import Layout from './components/Layout'
 import About from './pages/About'
 import Experience from './pages/Experience'
 import Projects from './pages/Projects'
-import Writing from './pages/Writing'
+import Certifications from './pages/Certifications'
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <About />
         <Experience />
         <Projects />
-        <Writing />
+        <Certifications />
       </div>
     </Layout>
   )
