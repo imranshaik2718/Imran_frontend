@@ -73,7 +73,10 @@ function Chatbot() {
   useEffect(() => {
     if (!isTyping && messages.length > 0 && isNearBottom()) {
       setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        messagesEndRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
         userScrolledRef.current = false;
       }, 100);
     }
@@ -83,7 +86,10 @@ function Chatbot() {
   useEffect(() => {
     if (isTyping && isNearBottom()) {
       setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        messagesEndRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
       }, 100);
     }
   }, [isTyping]);
@@ -122,34 +128,53 @@ function Chatbot() {
 
     setIsTyping(true);
     let currentIndex = 0;
-    
+
     // Add empty bot message to start typing with unique ID
     const botMessageId = Date.now();
-    setMessages((prev) => [...prev, { id: botMessageId, sender: "bot", text: "" }]);
+    setMessages((prev) => [
+      ...prev,
+      { id: botMessageId, sender: "bot", text: "" },
+    ]);
 
     // Initial smooth scroll when typing starts (only if near bottom)
     if (isNearBottom()) {
       setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        messagesEndRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
       }, 100);
     }
 
     typingIntervalRef.current = window.setInterval(() => {
       currentIndex++;
       const currentText = fullText.substring(0, currentIndex);
-      
+
       setMessages((prev) => {
         const updated = [...prev];
-        const botMessageIndex = updated.findIndex((msg) => msg.id === botMessageId);
+        const botMessageIndex = updated.findIndex(
+          (msg) => msg.id === botMessageId
+        );
         if (botMessageIndex !== -1) {
-          updated[botMessageIndex] = { id: botMessageId, sender: "bot", text: currentText };
+          updated[botMessageIndex] = {
+            id: botMessageId,
+            sender: "bot",
+            text: currentText,
+          };
         }
         return updated;
       });
 
       // Minimal auto-scroll during typing (only every 50 chars to allow manual scrolling)
-      if (currentIndex % 50 === 0 && isNearBottom() && !userScrolledRef.current) {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      if (
+        currentIndex % 50 === 0 &&
+        isNearBottom() &&
+        !userScrolledRef.current
+      ) {
+        messagesEndRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
       }
 
       if (currentIndex >= fullText.length) {
@@ -161,7 +186,10 @@ function Chatbot() {
         // Final scroll when typing completes (only if near bottom)
         if (isNearBottom() && !userScrolledRef.current) {
           setTimeout(() => {
-            messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            messagesEndRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+            });
           }, 100);
         }
       }
@@ -171,13 +199,19 @@ function Chatbot() {
   const handleQuestionClick = (questionText: string, answerText: string) => {
     // Add user question as a message with unique ID
     const userMessageId = Date.now();
-    setMessages((prev) => [...prev, { id: userMessageId, sender: "user", text: questionText }]);
-    
+    setMessages((prev) => [
+      ...prev,
+      { id: userMessageId, sender: "user", text: questionText },
+    ]);
+
     // Smooth scroll to show the new user message
     setTimeout(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      messagesEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
     }, 50);
-    
+
     // Show typing indicator, then type out the answer
     setTimeout(() => {
       typeMessage(answerText, 15);
@@ -188,11 +222,14 @@ function Chatbot() {
     if (!inputMessage.trim() || isTyping) return;
 
     const userInput = inputMessage.trim();
-    
+
     // Add user message with unique ID
     const userMessageId = Date.now();
-    setMessages((prev) => [...prev, { id: userMessageId, sender: "user", text: userInput }]);
-    
+    setMessages((prev) => [
+      ...prev,
+      { id: userMessageId, sender: "user", text: userInput },
+    ]);
+
     // Clear input immediately
     setInputMessage("");
 
@@ -201,7 +238,10 @@ function Chatbot() {
       let botResponse = "";
 
       // Check for "hi" or "hello" (case-insensitive)
-      if (userInput.toLowerCase() === "hi" || userInput.toLowerCase() === "hello") {
+      if (
+        userInput.toLowerCase() === "hi" ||
+        userInput.toLowerCase() === "hello"
+      ) {
         botResponse = "Hello, how can I help you?";
       } else {
         // Try to find matching question
@@ -211,7 +251,8 @@ function Chatbot() {
         if (matchedQuestion) {
           botResponse = matchedQuestion.answer;
         } else {
-          botResponse = "I'm here to help! Please select one of the questions above or ask me something specific.";
+          botResponse =
+            "I'm here to help! Please select one of the questions above or ask me something specific.";
         }
       }
 
@@ -251,26 +292,34 @@ function Chatbot() {
 
   return (
     <>
-      {/* Chat Toggle Button */}
+      {/* Chat Toggle Button with Attention-Grabbing Animation */}
       {!isOpen && (
-        <button
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 bg-[#64ffda] text-[#0a192f] rounded-full p-4 shadow-lg hover:bg-[#52e0c4] transition-all duration-300 hover:scale-110 flex items-center justify-center"
-          aria-label="Open chatbot"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-3">
+          {/* Waving Hand Icon with "Hi!" Badge */}
+
+          {/* Chat Button */}
+          <button
+            onClick={() => setIsOpen(true)}
+            className="bg-[#64ffda] text-[#0a192f] rounded-full p-4 shadow-lg hover:bg-[#52e0c4] transition-all duration-300 hover:scale-110 flex items-center justify-center relative"
+            aria-label="Open chatbot"
           >
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-          </svg>
-        </button>
+            {/* Notification pulse */}
+            <div className="absolute inset-0 rounded-full bg-[#64ffda] animate-ping opacity-20"></div>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="relative z-10"
+            >
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </button>
+        </div>
       )}
 
       {/* Chat Window */}
@@ -307,7 +356,10 @@ function Chatbot() {
           </div>
 
           {/* Chat Content */}
-          <div ref={chatContentRef} className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div
+            ref={chatContentRef}
+            className="flex-1 overflow-y-auto p-4 space-y-4"
+          >
             {/* Show welcome message and questions if no messages yet */}
             {messages.length === 0 && (
               <>
@@ -340,7 +392,10 @@ function Chatbot() {
                   .filter((msg) => msg.text !== "" || msg.sender === "user")
                   .map((msg) => (
                     <div
-                      key={msg.id || `msg-${msg.sender}-${msg.text.substring(0, 10)}`}
+                      key={
+                        msg.id ||
+                        `msg-${msg.sender}-${msg.text.substring(0, 10)}`
+                      }
                       className={`flex ${
                         msg.sender === "user" ? "justify-end" : "justify-start"
                       }`}
@@ -356,23 +411,26 @@ function Chatbot() {
                       </div>
                     </div>
                   ))}
-                
+
                 {/* Typing indicator */}
                 {isTyping && (
                   <div className="flex justify-start">
                     <div className="bg-[#0a192f] border border-[#64ffda]/20 rounded-lg p-3 text-sm text-[#ccd6f6]">
                       <div className="flex items-center gap-1">
-                     
                         <div className="flex gap-1">
                           <span className="animate-pulse">.</span>
-                          <span className="animate-pulse [animation-delay:0.2s]">.</span>
-                          <span className="animate-pulse [animation-delay:0.4s]">.</span>
+                          <span className="animate-pulse [animation-delay:0.2s]">
+                            .
+                          </span>
+                          <span className="animate-pulse [animation-delay:0.4s]">
+                            .
+                          </span>
                         </div>
                       </div>
                     </div>
                   </div>
                 )}
-                
+
                 <div ref={messagesEndRef} />
               </div>
             )}
