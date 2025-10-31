@@ -66,8 +66,16 @@ function Layout({ children }: LayoutProps) {
       }}
     >
       <div className="flex relative z-10">
-        {/* Left Column - Fixed */}
-        <aside className="fixed left-0 top-0 h-screen w-1/2 p-8 flex flex-col items-center justify-center z-20">
+        {/* Left Column - Fixed (proxy scroll to right) */}
+        <aside
+          className="fixed left-0 top-0 h-screen w-1/2 p-8 flex flex-col items-center justify-center z-20"
+          onWheel={(e) => {
+            const mainElement = document.querySelector('main') as HTMLElement | null
+            if (mainElement) {
+              mainElement.scrollBy({ top: e.deltaY, behavior: 'auto' })
+            }
+          }}
+        >
           <div className="w-full max-w-md text-left mb-12">
             <h1 className="text-5xl font-bold text-white mb-2">Imran Ali</h1>
             <p className="text-[#8892b0] text-lg mb-4">Front End Developer</p>
