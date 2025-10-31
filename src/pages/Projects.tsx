@@ -4,6 +4,28 @@ function Projects() {
       <h3 className="text-2xl font-bold text-white mb-8">Projects</h3>
 
       <div className="space-y-12">
+
+      <div className="space-y-4">
+          <div className="flex items-center gap-3 flex-wrap">
+            <h4 className="text-xl font-bold text-white">
+              Zunipixel
+            </h4>
+            <span className="text-[#8892b0] text-sm">(Company Project)</span>
+          </div>
+          <p className="text-[#8892b0]">
+            Contributed to building accessible, reusable UI components and page experiences for Zunipixel’s platform. Work included implementing WCAG-compliant patterns, ensuring semantic HTML, maintaining design consistency across pages, and optimizing responsiveness and performance.
+          </p>
+          <div className="flex flex-wrap gap-2 items-center">
+            <a
+              href="https://www.zunipixel.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#64ffda] hover:underline text-sm"
+            >
+              Company Website →
+            </a>
+          </div>
+        </div>
         {/* Project 1 - TaskMate */}
         <div className="space-y-4">
           <div className="flex items-center gap-3 flex-wrap">
@@ -166,6 +188,9 @@ function Projects() {
             <span className="px-3 py-1 bg-[#233554] text-[#64ffda] text-xs rounded">Animations</span>
           </div>
         </div>
+
+        {/* Project 5 - Zunipixel (Company Project) */}
+        
       </div>
     </section>
   )
